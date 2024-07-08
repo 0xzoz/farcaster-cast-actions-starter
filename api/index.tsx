@@ -8,6 +8,8 @@ import { serveStatic } from "@airstack/frog/serve-static";
 import { handle } from "@airstack/frog/vercel";
 import { config } from "dotenv";
 
+import { gm } from "../lib/gm.js";
+
 config();
 
 const ADD_URL =
@@ -45,7 +47,7 @@ app.hono.post("/gm", async (c) => {
     if (message.length > 30) {
       message = "GM!";
     }
-
+    await gm(castFid);
     return c.json({ message });
   } else {
     return c.json({ message: "Unauthorized" }, 401);
